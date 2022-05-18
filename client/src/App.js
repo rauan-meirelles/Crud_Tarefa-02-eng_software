@@ -6,7 +6,6 @@ import Card from './components/cards/card';
 function App() {
   const [values, setValues] = useState();
   const [listMovies, setListMovies] = useState();
-  const [newValues, setNewValues] = useState();
 
   const handleClickButton = async () => {
     Axios.post("http://localhost:3001/register", {
@@ -29,34 +28,33 @@ function App() {
     }))
   }
 
-  function handleNewValues (value) {
-    setNewValues(prevValue=>({
-      ...prevValue,
-      [value.target.name]: value.target.value,
-    }))
-  }
-
   const handleUpdateButton = async () => {
+    const id = document.getElementById("input-id").value;
+    const name = document.getElementById("input-name").value;
+    const cost = document.getElementById("input-cost").value;
+    const category = document.getElementById("input-category").value;
+
     Axios.put("http://localhost:3001/update", {
-      id: newValues.id,
-      name: newValues.name,
-      cost: newValues.cost,
-      category: newValues.category,
+      id: id,
+      name: name,
+      cost: cost,
+      category: category,
     })
-    setNewValues("")
   }
 
   const handleDeleteButton = async () => {
-    console.log(newValues.id)
-    Axios.delete(`http://localhost:3001/${newValues.id}`)
-    setNewValues("")
+    const id = document.getElementById("input-id").value;
+
+    Axios.delete(`http://localhost:3001/${id}`)
   }
+
 
   useEffect(() => {
     Axios.get("http://localhost:3001/get").then((response) => {
       setListMovies(response.data);
     })
   }, [])
+
 
   return (
     <div className='app-container' id="app-container">
@@ -74,10 +72,10 @@ function App() {
 
       <div className='update-container' id="update-container">
         <h1 className='register-title'>Crud Movies</h1>
-        <input type='text' name='id' placeholder=' Id:' className='register-input' id="input-id" onChange={handleNewValues}></input>
-        <input type='text' name='name' placeholder=' Nome:' className='register-input' id="input-name" onChange={handleNewValues}></input>
-        <input type='text' name='cost' placeholder=' Preço:' className='register-input' id="input-cost" onChange={handleNewValues}></input>
-        <input type='text' name='category' placeholder=' Categoria:' className='register-input' id="input-category" onChange={handleNewValues}></input>
+        <input type='text' name='id' placeholder=' Id:' className='register-input' id="input-id"></input>
+        <input type='text' name='name' placeholder=' Nome:' className='register-input' id="input-name"></input>
+        <input type='text' name='cost' placeholder=' Preço:' className='register-input' id="input-cost"></input>
+        <input type='text' name='category' placeholder=' Categoria:' className='register-input' id="input-category"></input>
         <div className='register-buttons'>
         <button className='register-button' id="updater-button" onClick={() => handleUpdateButton()}>Atualizar</button>
         <button className='register-button' id="updater-button" onClick={() => handleDeleteButton()}>Deletar</button>
