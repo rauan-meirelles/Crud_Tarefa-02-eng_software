@@ -1,18 +1,21 @@
 import express from 'express';
+import cors from 'cors';
 import pkg from '@prisma/client';
 const { PrismaClient } = pkg;
 
 const app = express();
+
 app.use(express.json());
+app.use(cors());
 
 const prisma = new PrismaClient();
 
-app.post("/", async (req, res) => {
+app.post("/register", async (req, res) => {
     const {name, cost, category} = req.body;
     const movie = await prisma.movie.create({
         data: {
             name: name,
-            cost: cost,
+            cost: Number(cost),
             category: category,
         },
     });
@@ -50,7 +53,7 @@ app.put("/", async (req, res) => {
         },
         data: {
             name: name,
-            cost: cost,
+            cost: Number(cost),
             category: category,
         },
     });
