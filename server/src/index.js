@@ -30,7 +30,7 @@ app.post("/createManyMovies", async (req, res) => {
     res.json(movies);
 });
 
-app.get("/", async (req, res) => {
+app.get("/get", async (req, res) => {
     const movies = await prisma.movie.findMany();
     res.json(movies);
 });
@@ -45,11 +45,11 @@ app.get("/ById/:id", async (req, res) => {
     res.json(movie);
 });
 
-app.put("/", async (req, res) => {
+app.put("/update", async (req, res) => {
     const {id, name, cost, category} = req.body;
     const updateMovie = await prisma.movie.update({
         where: {
-            id: id,
+            id: Number(id),
         },
         data: {
             name: name,
