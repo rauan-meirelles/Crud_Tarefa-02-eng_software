@@ -1,0 +1,31 @@
+.app-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  .register-container {
+    padding: 10px 20px;
+    border: 2px solid black;
+    height: max-content;
+    border-radius: 5px;
+    margin-top: 20px;
+  }
+  
+  .register-title {
+    text-align: center;
+    margin-bottom: 20px;
+    font-family: monospace;
+  }
+  
+  .register-input {
+    display: block;
+    padding: 7px 0;
+    margin: 10px auto;
+  }
+  
+  .register-button {
+    display: grid;
+    padding: 2px 5px;
+    margin: 0 auto;
+  }
